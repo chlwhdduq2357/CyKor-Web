@@ -1,0 +1,9 @@
+{% if post_list %}
+    <ul>
+    {% for p in post_list %}
+        <li><a href="/detail/{{ p._id }}/">{{ p._title }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>작성된 글이 없습니다.</p>
+{% endif %}
