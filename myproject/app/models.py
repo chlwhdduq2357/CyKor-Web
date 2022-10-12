@@ -1,11 +1,11 @@
 from app import db
-
+from werkzeug.security import generate_password_hash, check_password_hash
 
 ##### database configuration #####
 # +------------------------------+
 # | model 1. user                |
 # +----------+-------------------+
-# | id       | id of a user      |
+# | userid   | id of a user      |
 # +----------+-------------------+   
 # | username | name of a user    |
 # +----------+-------------------+
@@ -14,9 +14,7 @@ from app import db
 # +------------------------------+
 # | model 2. post                |
 # +----------+-------------------+
-# | id       | id of a post      |
-# +----------+-------------------+
-# | userid   | author of a post  |
+# | userid   | id of an author   |
 # +----------+-------------------+
 # | title    | title of a post   |
 # +----------+-------------------+
@@ -26,14 +24,23 @@ from app import db
 # +----------+-------------------+
 
 class User(db.Model):
-    _id         = db.Column(db.Integer, primary_key = True)
+    id          = db.Column(db.Integer, primary_key = True)
+    _userid     = db.Column(db.String, nullable = False)
     _username   = db.Column(db.String, nullable = False)
-    _password   = db.Column(db.String, nullable = False) # password encrypted
+    _password   = db.Column(db.String, nullable = False)
+
+    def __init__ (self, userid, username, password):
+        self._username = username
+        self._password = generate_password_hash(password)
+        self._userid = userid
+
+    def password_check(self, password):
+        return check_password_hash(self.password, password)
 
     
 class Post(db.Model):
-    _id         = db.Column(db.Integer, primary_key = True)
-    _userid     = db.Column(db.Integer, db.ForeignKey('user._id'))
+    id          = db.Column(db.Integer, primary_key = True)
+    _userid     = db.Column(db.String, db.ForeignKey('user.id'))
     _title      = db.Column(db.String, nullable = False)
     _time       = db.Column(db.DateTime(), nullable  = False)
     _content    = db.Column(db.String, nullable = False)
