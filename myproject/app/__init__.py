@@ -1,6 +1,4 @@
 from flask import Flask
-from flask_migrate import Migrate
-from flask_sqlalchemy import SQLAlchemy
 
 ### Program starts here ###
 
@@ -29,30 +27,21 @@ from flask_sqlalchemy import SQLAlchemy
 # sorry for my short English
 
 
-# database management
-# using sql alchemy
-
-import config
-
-db = SQLAlchemy()
-migrate = Migrate(compare_type = True)
-
-
 # using application factory
 def create_app():
-    app = Flask(__name__)
-    app.config.from_object(config)
 
-    # configur database
-    # using ORM
-    db.init_app(app)
-    migrate.init_app(app, db)
-    from . import models
+    app = Flask(__name__)
+
     
     # using bluprint
-    from .views import main_views
-    from .views import user_management
+    from views import main_views
+    from views import user_management
     app.register_blueprint(main_views.blueprint)
     app.register_blueprint(user_management.blueprint)
 
     return app
+
+if __name__ == "__main__":
+
+    app = create_app()
+    app.run()

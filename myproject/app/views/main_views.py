@@ -1,9 +1,7 @@
 from flask import Blueprint, render_template, url_for
-from app.models import Post
 from werkzeug.utils import redirect
 
 from datetime import datetime
-from app import db
 
 ## main view ##
 # has functions about post and general
