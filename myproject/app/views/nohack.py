@@ -10,5 +10,8 @@ import hashlib
 def hash_password(password):
     return hashlib.sha256(password.encode()).hexdigest()
 
-def filter(string):
+def filter_string(string):
+    filter_list = [">","<","-","%","$","/"]
+    for x in filter_list:
+        string = string.replace(x, "")
     return string
