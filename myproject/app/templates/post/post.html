@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html>
+<head> 	
 	<meta charset="UTF-8">
-	<title> Home </title>
+	<title> Post </title>
 	<style>
 		a{
 			text-decoration-line: none;
@@ -21,27 +21,27 @@
 </head>
 
 <body>
-	<div class="container">
-		<h1> Home 
-		
-		</h1>
 		<div class="nav">
+			<h1> Register </h1>
 			<font size="5"> <a href="/home"> Home </a> </font>	
 			<font size="5"> <a href="/post_list"> List </a> </font> 
 			<font size="5"> <a href="/post"> Post </a> </font> 
 			<font size="5"> <a href="/user/login"> Login </a> </font>
 			<font size="5"> <a href="/user/register"> Register </a> </font>
 		</div>
+		
 		<br><br><br>
 		<hr>
-		<h2> {% if username %} Hello, {{username}}
-			 {% else %} please log in first 
-			 {% endif %} 
-		</h2>
-	</div>
+		{% if error_msg %}
+		<h2> {{ error_msg }} </h2>
+		{% else %}
+		<form action="./post" method="post">
+			<textarea style="width:80%; font-size:20px;" name="title" id="title" rows="1"></textarea>
+			<textarea style="width:80%; font-size:20px;;" name="content" id="content" rows="20"></textarea>
+			<br>
+			<input type="submit" value="post">
+		</form>
+		{% endif %}
 </body>
-
-
-
 
 </html>

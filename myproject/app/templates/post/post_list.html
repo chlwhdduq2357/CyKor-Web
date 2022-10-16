@@ -1,9 +1,76 @@
-{% if post_list %}
-    <ul>
-    {% for p in post_list %}
-        <li><a href="/detail/{{ p._id }}/">{{ p._title }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>작성된 글이 없습니다.</p>
-{% endif %}
+<!DOCTYPE html>
+<html>
+<head> 
+	<meta charset="UTF-8">
+	<title> Post List </title>
+	<style> 	
+		
+		table {
+			width: 100%;
+			border-top: 1px solid;
+			border-collapse: collapse;
+		}
+		table th, td{
+			border-bottom: 1px solid;
+			padding:10px;
+		}
+		
+		table a{
+			text-decoration-line: none;
+			display: block;
+			padding: 8px;
+			float: left;
+			}
+	
+		a:link{color:black;}
+		a:visited{color:black;}
+		a:hover{color:black;}
+		a:active{color:black;}
+		
+		a{
+			text-decoration-line: none;
+			display: block;
+			padding: 8px;
+			float: left;
+			}
+
+	 </style>
+	</style>
+</head>
+
+
+<body>
+	<div class="container">
+		<h1> List </h1>
+		<div class="nav">
+			<font size="5"> <a href="/home"> Home </a> </font>	
+			<font size="5"> <a href="/post_list"> List </a> </font> 
+			<font size="5"> <a href="/post"> Post </a> </font> 
+			<font size="5"> <a href="/user/login"> Login </a> </font>
+			<font size="5"> <a href="/user/register"> Register </a> </font>
+		</div>
+		<br><br><br>
+		<hr>
+		<br>
+
+		{% if post_list %}
+			<table>
+				<thead>
+					<th>User</th> <th>Title</th> <th>Time</th>
+				</thead>
+			{% for p in post_list %}
+				<tr>
+					<td> <font size="3"> {{ p[0] }}</font></td>
+					<td><font size="3"> <a href="/detail/{{ p[3] }}/"> {{ p[1] }}</a> </font></td>
+					<td> <font size="3"> {{ p[2] }}</font></td>
+				</tr>
+			{% endfor %}
+			</table>
+		{% else %}
+			<p> 작성된 글이 없습니다.</p>
+		{% endif %}
+		
+	</div>
+</body>
+		
+</html>

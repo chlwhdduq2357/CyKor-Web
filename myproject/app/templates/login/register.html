@@ -3,20 +3,41 @@
 <head>
 	 <meta charset='utf-8' />
 	 <title> Register </title>
+	 <style>
+		a{
+			text-decoration-line: none;
+			display: block;
+			padding: 8px;
+			float: left;
+			}
+			
+		a:link{color:black;}
+		a:visited{color:black;}
+		a:hover{color:black;}
+		a:active{color:black;}		
+
+	 </style>
 </head>
 
 <body>
 	
 	<div class = "container">
-		<div class = "row mt-3">
+
+		<div class="nav">
 			<h1> Register </h1>
+			<font size="5"> <a href="/home"> Home </a> </font>	
+			<font size="5"> <a href="/post_list"> List </a> </font> 
+			<font size="5"> <a href="/post"> Post </a> </font> 
+			<font size="5"> <a href="/user/login"> Login </a> </font>
+			<font size="5"> <a href="/user/register"> Register </a> </font>
 		</div>
-		<div class = "col-15">
 		
-			<form method = "POST", action=".">
+		<br><br><br>
+		<hr>
+		<div>
+		
+			<form method = "POST", action="./register">
 			
-			
-				
 			    <div class="form-group">
 					<input type="text" class="form-control" id="userid" placeholder="user id" name="userid"/>
 				</div>

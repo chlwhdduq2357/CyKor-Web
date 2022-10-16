@@ -8,6 +8,7 @@ from datetime import datetime
 # insert, select query is available
 # also initializes db if needed
 
+## warning ##
 ## every arguments should be filtered
 ## before entering this file
 ## no filtering in here...
@@ -16,6 +17,10 @@ DATABASE_PATH = "./cykor.db"
 
 def insert_db(table, value):
 
+    # insert into table value
+    # automatically check
+    # the number of parameters
+    
     db = sql.connect(DATABASE_PATH)
     cur = db.cursor()
 
@@ -25,6 +30,9 @@ def insert_db(table, value):
     db.close()
 
 def select_all_db(table):
+
+    # select * from table
+    # return table in type of list
 
     db = sql.connect(DATABASE_PATH)
     cur = db.cursor()
@@ -82,6 +90,10 @@ def _initialize_db():
                         );""")
     except:
         pass
+
+    ## inserting initial values
+    ## should be removed after debugging process
+    
     time = str(datetime.now())
     cur.execute("INSERT INTO USER VALUES ('admin', 'admin', 'asdf');")
     cur.execute(f"INSERT INTO POST VALUES ('admin', 'test title', '{time}', 'test content');")
@@ -90,18 +102,3 @@ def _initialize_db():
     db.close()
     return 0
 
-def test():
-    db = sql.connect("./test.db")
-
-    cur = db.cursor()
-    # cur.execute("CREATE TABLE Test(id INT, name VARCHAR);")
-
-    cur.execute("INSERT INTO Test VALUES (1, 'JACK');")
-    cur.execute("INSERT INTO Test VALUES (2, 'BILL');")
-    cur.execute("INSERT INTO Test VALUES (3, 'SPAM');")
-
-    cur.execute("SELECT * FROM Test")
-    print(cur)
-    for row in cur:
-        print(row)
-    return cur

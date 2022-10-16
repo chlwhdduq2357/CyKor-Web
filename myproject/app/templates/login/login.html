@@ -1,38 +1,64 @@
-<html>
+<!DOCTYPE html>
+<html lang = "en">
 <head>
-  <title>WANNA CYKOR</title>
-  <meta charset="utf-8">
-  
-  <style> 
-	.container {
-		width: 250px;
-		height: 300px;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		flex-direction: column;
-		border: 5px solid lightgrey;
-		border-radius: 5px;
-	}
+	 <meta charset='utf-8' />
+	 <title> Login </title>
+	 <style>
+		a{
+			text-decoration-line: none;
+			display: block;
+			padding: 8px;
+			float: left;
+			}
+			
+		a:link{color:black;}
+		a:visited{color:black;}
+		a:hover{color:black;}
+		a:active{color:black;}		
 
-  </style>
-  
- 
+		
+	 </style>
 </head>
 
 <body>
-  <div class="login" style="text-align:left;">
-	<div class="container">
-		<h1> 로그인 </h1>
-		<p></p>
-		<form action="{{ url_for('main.login') }}" method="post">
-			<textarea name="userid" type="text" id="userid" rows="1"></textarea>
-			<textarea name="password" type="password" id="password" rows="1"></textarea>
-			<input type="submit" value="login">
-		</form>
+	
+	<div class = "container">
+	
+		<div class="nav">
+			<h1> Login </h1>
+			<font size="5"> <a href="/home"> Home </a> </font>	
+			<font size="5"> <a href="/post_list"> List </a> </font> 
+			<font size="5"> <a href="/post"> Post </a> </font> 
+			<font size="5"> <a href="/user/login"> Login </a> </font>
+			<font size="5"> <a href="/user/register"> Register </a> </font>
+		</div>
+		
+		<br><br><br>
+		<hr>
+		<div>
+		
+			<form method = "POST", action="./login">
+				
+			    <div class="form-group">
+					<input type="text" class="form-control" id="userid" placeholder="user id" name="userid"/>
+				</div>
+				
+				<div class="form-group">
+                    <input type="text" class="form-control" id="username" placeholder="user name" name="username"/>
+                </div>
+				<div class="form-group">
+                    <input type="password" class="form-control" id="password" placeholder="password" name="password"/>
+                </div>
 
+				<p></p>
+				{% if error_msg %}
+				<div style="color:red">{{ error_msg }}</div>
+				{% endif %}
+				<p></p>
+				<button type = "submit" class = "btn btn-primary"> Log in </button>
+			</form>
+		</div>
 	</div>
 	
-  </div>
 </body>
 </html>
