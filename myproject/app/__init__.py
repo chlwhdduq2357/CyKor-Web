@@ -24,7 +24,7 @@ import os
 #   - read a post only if logged in
 #   - under main_view.py, function detail
 # 
-# 5. Edit a post                (-)
+# 5. Edit a post                (v)
 #   - edit a post only if logged in
 #   - you have to be the writer of the post to edit
 #   - or you are a admin
@@ -36,6 +36,9 @@ import os
 #   - each titles are linked to corresponding post
 #   - but you have to log in to read the post
 #   - under main_view.py, function index
+#
+# 7. Delete a post              (v)
+#   - delete a post only if logged in
 
 # sorry for my short English
 

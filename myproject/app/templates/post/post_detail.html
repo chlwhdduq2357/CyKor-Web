@@ -34,13 +34,27 @@
 	<br><br><br>
 	<hr>
 	{% if post != "please log in first" %}
+	
 		<h2>{{ post[1] }}</h2>
 		<h3> {{ post[0] }} </h3> 
 		<h4> {{ post[2][:19]}}</h4>
 		<hr>
-		<div>
-			{{ post[3] }}
-		</div>
+		<table>
+			<td style="width:80%;padding:10px 10px 10px 10px;word-break:break-all">
+				{% for line in post[3] %}
+					{{ line }}
+					<br>
+				{% endfor %}
+			</td>
+		</table>
+		<hr>
+		{% if isAuthor %}
+			<br><br>
+			<button type="button" onclick="location.href='/edit/{{ post_id }}'"> Edit </button>
+			<button type="button" onclick="location.href='/delete/{{post_id}}'" > Delete </button>
+		{% endif %}
+		
+		
 	{% else %}
 		<h2> {{ post }}</h2>
 	{% endif %}

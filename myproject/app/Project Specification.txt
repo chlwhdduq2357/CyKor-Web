@@ -1,0 +1,79 @@
+1. Summary
+
+- 프로젝트 이름 : Cykor CRUD
+- Made by Jongyeop Choi
+- 개발 기간 : 2022.10.11 ~ 2022.10.27
+- 주요 기능
+	- 새 유저로 가입하기
+	- 로그인 하기
+	- 글 목록 보기
+	- 새 글 작성하기
+	- 글 수정하기
+	- 글 삭제하기
+- 사용된 언어 : Python 3.9.7
+- 사용된 프레임워크 : Flask 2.2.2
+- Database : sqlite 3
+
+
+2. Sturcture
+
+ app/
+├─ __init__.py
+├─ cykor.db
+│
+├─ views/
+│   └─ main_views.py
+│   └─ user_management.py
+│   └─ database_manager.py
+│   └─ nohack.py
+│
+└─ templates/
+      ├─ home/
+      │   └─ home.html
+      ├─ login/
+      │   └─ login.html
+      │   └─ register.html
+      └─ post/
+            └─ post.html
+            └─ post_detail.html
+            └─ post_list.html
+
+- __init__.py
+    - app object 생성
+    - app 구동
+	
+- main_views.py
+    - db에서 글 목록 가져와 출력
+    - 글 상세 내용 출력
+    - 새 글 db로 upload
+    - 글 수정 및 삭제 
+
+- user_management.py 
+    - db에 새 유저 등록
+    - login 과정에서 username, password 등 확인, 비교
+
+- database_manager.py
+    - SQL query문 생성 및 실행
+    - user_management, main_views에서 사용
+
+- nohack.py
+    - 유니코드 필터링, 대체
+    - sql injection 등의 방어 목적
+
+
+3. Detailed explanation 
+
+__init__.py
+
+Flask의 application factory 패턴을 이용하여 app 객체를 생성한다.
+session을 사용하기 위해 secret_key를 설정한다.
+main_views.py, user_management.py에서 blueprint를 app에 등록한다.
+app을 구동한다.
+
+
+main_views.py
+
+
+
+user_management.py
+

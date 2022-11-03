@@ -2,7 +2,7 @@
 <html>
 <head> 	
 	<meta charset="UTF-8">
-	<title> Post </title>
+	<title> Edit </title>
 	<style>
 		a{
 			text-decoration-line: none;
@@ -22,7 +22,7 @@
 
 <body>
 		<div class="nav">
-			<h1> Register </h1>
+			<h1> Edit </h1>
 			<font size="5"> <a href="/home"> Home </a> </font>	
 			<font size="5"> <a href="/post_list"> List </a> </font> 
 			<font size="5"> <a href="/post"> Post </a> </font> 
@@ -35,14 +35,13 @@
 		{% if error_msg %}
 		<h2> {{ error_msg }} </h2> 
 		{% else %}
-		<form action="./post" method="post">
-			<textarea style="width:80%; font-size:20px;resize:none;" name="title" id="title" rows="1"></textarea>
-			<textarea style="width:80%; font-size:20px;resize:none;" name="content" id="content" rows="20"></textarea>
+		<form action="." method="post">
+			<textarea style="width:80%; font-size:20px; resize:none;" name="title" id="title" rows="1"> {{title}} </textarea>
+			<textarea style="width:80%; font-size:20px; resize:none;" name="content" id="content" rows="20"> {{content}} </textarea>
 			<br>
 			<input type="submit" value="post">
 		</form>
 		{% endif %}
-
 </body>
 
 </html>

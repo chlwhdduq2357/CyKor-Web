@@ -43,11 +43,35 @@ def select_all_db(table):
     db.close()
     return valueList
 
+def delete_post_db(value):
+
+    db = sql.connect(DATABASE_PATH)
+    cur = db.cursor()
+
+    queryString = "DELETE FROM POST WHERE USERNAME=? AND TIME=?"
+    cur.execute(queryString, value)
+
+    db.commit()
+    db.close()
+
+def update_post_db(value):
+
+    db = sql.connect(DATABASE_PATH)
+    cur = db.cursor()
+
+    queryString = "UPDATE POST SET TITLE=?,TIME=?,CONTENT=? "
+    queryString += "WHERE USERNAME=? AND TIME=?"
+    cur.execute(queryString, value)
+
+    db.commit()
+    db.close()
+
 
 def _initialize_db():
 
     # this function runs only for the first time
     # to create and/or to initialize the database
+    # I should've added id but it is too late...
     
     ##### database configuration #####
     # +------------------------------+

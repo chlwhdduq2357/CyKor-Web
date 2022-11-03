@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, session
+from flask import Blueprint, render_template, request, session, url_for
 
 from werkzeug.utils import redirect
 
@@ -35,9 +35,9 @@ def register():
     useridList = [u[0] for u in userListRaw]
     usernameList = [u[1] for u in userListRaw]
 
-    print("user list : ", userListRaw)
-    print("user id list : ", useridList)
-    print("user name list : ", usernameList)
+    # print("user list : ", userListRaw)
+    # print("user id list : ", useridList)
+    # print("user name list : ", usernameList)
 
     
     if request.method == "GET":
@@ -72,7 +72,7 @@ def register():
         password = nohack.hash_password(password)
     
         user = (userid, username, password)
-        print(user)
+        # print(user)
     
         dbm.insert_db("USER", user)
 
@@ -86,9 +86,9 @@ def login():
     useridList = [u[0] for u in userListRaw]
     usernameList = [u[1] for u in userListRaw]
 
-    print("user list : ", userListRaw)
-    print("user id list : ", useridList)
-    print("user name list : ", usernameList)
+    # print("user list : ", userListRaw)
+    # print("user id list : ", useridList)
+    # print("user name list : ", usernameList)
 
 
     error_msg = ""
@@ -114,6 +114,7 @@ def login():
             return render_template("/login/login.html", error_msg = error_msg)
         # check 4 : password
         idx = useridList.index(userid)
+        password = nohack.hash_password(password)
         if userListRaw[idx][2] != password: 
             error_msg = "wrong password"
             return render_template("/login/login.html", error_msg = error_msg)
