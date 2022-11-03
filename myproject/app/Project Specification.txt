@@ -2,7 +2,7 @@
 
 - 프로젝트 이름 : Cykor CRUD
 - Made by Jongyeop Choi
-- 개발 기간 : 2022.10.11 ~ 2022.10.27
+- 개발 기간 : 2022.10.11 ~ 2022.11.03
 - 주요 기능
 	- 새 유저로 가입하기
 	- 로그인 하기
@@ -13,6 +13,7 @@
 - 사용된 언어 : Python 3.9.7
 - 사용된 프레임워크 : Flask 2.2.2
 - Database : sqlite 3
+
 
 
 2. Sturcture
@@ -61,10 +62,12 @@
     - sql injection 등의 방어 목적
 
 
+
 3. Detailed explanation 
 
 __init__.py
 
+- create_app
 Flask의 application factory 패턴을 이용하여 app 객체를 생성한다.
 session을 사용하기 위해 secret_key를 설정한다.
 main_views.py, user_management.py에서 blueprint를 app에 등록한다.
@@ -73,7 +76,119 @@ app을 구동한다.
 
 main_views.py
 
+- default 
+주소 : /
+/home으로 redirect 한다.
+    
+- index
+주소 : /post_list
+post들의 리스트를 출력한다.
+database에서 post table을 읽어와 title, author, time 항목을 출력한다.
+title 문자열의 길이가 60 이상이면 "..." 으로 생략한다.  
+각 post의 제목은 해당 detail 페이지로 연결되어있다.
+post_list.html을 이용하여 rendering 한다.
+
+- detail_default
+주소 : /detail
+/post_list로 redirect 한다.
+
+- detail
+주소 : /detail/<post_id>
+로그인을 해야 이 페이지에 접속할 수 있다.
+만약 로그인을 했다면, 해당 post의 title, author, time과 content를 확인할 수 있다.
+만약 사용자가 이 post의 author라면 edit 버튼과 delete 버튼이 출력된다.
+edit 버튼은 /edit/<post_id> 페이지로 연결된다.
+delete 버튼은 /delete/<post_id> 페이지로 연결된다.
+post_detail.html을 이용하여 rendering 한다.
+
+- post
+주소 : /post
+로그인을 해야 이 페이지에 접속할 수 있다.
+만약 로그인을 했다면, html form을 이용하여 post의 title과 content를 입력받는다.
+post 버튼을 클릭하면 현재의 시간을 time으로 얻어오고 username 까지 포함해
+database에 새로운 post 항목을 추가한다. 
+post.html을 이용하여 rendering 한다.
+post를 클릭하면 해당 글의 /detail 페이지로 redirect 된다.
+
+- edit_default
+주소 : /edit
+/index 페이지로 redirect 된다.
+
+- edit
+주소 : /edit/<post_id>
+로그인을 해야 이 페이지에 접속할 수 있다. 
+사용자의 username이 post의 username과 같다면 이 페이지에 접속할 수 있다.
+post와 동일한 페이지이며, post의 title과 content를 수정할 수 있다.
+edit.html을 이용하여 rendering 한다.
+
+- delete_default
+주소 : /delete
+/index로 redirect 한다.
+
+- delete_post
+주소 : /delete/<post_id>
+만약 username이 post의 author와 동일하면 database에서 post를 삭제한다.
+삭제한 후 /index 페이지로 redirect 된다.
+페이지 rendering은 하지 않는다.
+
+- home
+주소 : /home
+로그인을 했다면 "Hello, {username}" 문자열을 출력한다.
+home.html을 이용하여 rendering 한다.
 
 
 user_management.py
+
+- register
+주소 : /user/register
+새 user로 등록할 수 있다. 
+html form을 이용하여 userid, username, password를 입력받는다. 
+userid, username의 중복 여부를 확인하고, password를 두 번 입력받아 확인한다.
+password를 nohack.py의 hash_password 함수를 이용해 암호화한다. 
+database에 위의 항목을 추가한다. 
+register.html을 이용하여 rendering 한다.
+
+- login
+주소 : /user/login
+등록된 user라면 login 할 수 있다.
+html form을 이용하여 userid, username, password를 입력받는다.
+user 항목과 입력값을 비교하여 login하고 session에 username 항목을 저장한다.
+login.html을 이용하여 rendering 한다.
+
+
+database_manager.py
+
+- insert_db
+database에 항목을 추가한다.
+table, value 값을 인자로 받아 query를 구성하여 실행한다.
+
+- select_all_db
+database에서 table을 읽는다.
+table 값을 인자로 받아 query를 구성하여 실행한다. 
+
+- delet_post_db
+database의 post table에서 항목을 삭제한다.
+value 값을 인자로 받아 username, time 항목을 비교하여 해당하는 post를 삭제한다.
+
+- update_post_db
+database의 post table에서 항목을 수정한다.
+value 값을 인자로 받아 username, time 항목을 비교하여 해당하는 post를 수정한다.
+
+- _initialize_db
+database를 초기화한다.
+
+
+nohack.py
+
+- hash_password
+문자열을 sha256으로 hasing한다.
+
+- filter_string
+sql injection 등을 방지하기 위해 특수문자, sql 예약어 등을 필터링한다.
+username, userid 설정시에 사용한다. 
+
+- replace_string
+sql injection, xss 등을 방지하기 위해 특수문자를 필터링한다.
+문자열에서 특수문자를 비슷한 형태의 다른 문자로 변경한다.
+post의 title과 content 항목을 필터링할 때 사용한다.
 

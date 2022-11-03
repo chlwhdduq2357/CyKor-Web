@@ -39,6 +39,7 @@ import os
 #
 # 7. Delete a post              (v)
 #   - delete a post only if logged in
+#   - you can delete a post only if you are the author
 
 # sorry for my short English
 

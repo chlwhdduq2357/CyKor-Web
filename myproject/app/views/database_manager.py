@@ -113,15 +113,8 @@ def _initialize_db():
                         CONTENT text NOT NULL
                         );""")
     except:
-        pass
+        return -1
 
-    ## inserting initial values
-    ## should be removed after debugging process
-    
-    time = str(datetime.now())
-    cur.execute("INSERT INTO USER VALUES ('admin', 'admin', 'asdf');")
-    cur.execute(f"INSERT INTO POST VALUES ('admin', 'test title', '{time}', 'test content');")
-    
     db.commit()
     db.close()
     return 0

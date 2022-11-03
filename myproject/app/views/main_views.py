@@ -94,9 +94,14 @@ def post():
     if not "username" in session:
         error_msg = "please log in first"
         return render_template("/post/post.html", error_msg = error_msg)
+    
     else:
         if request.method == "POST":
 
+            usernames = [x[0] for x in dbm.select_all_db("user")]
+            if not session["username"] in usernames:
+                return redirect(url_for("main.index"))
+            
             postList = dbm.select_all_db("POST")
             
             username = session["username"]
@@ -125,32 +130,36 @@ def edit_default():
 def edit(post_id):
 
     postRaw = list(dbm.select_all_db("post")[post_id])
+    postUser = postRaw[0]
     postTitle = postRaw[1]
     postContent = postRaw[3]
     postTime = postRaw[2]
+    usernames = [x[0] for x in dbm.select_all_db("user")]
 
     if "username" in session:
-        
-        if request.method == "GET":
-            return render_template("/post/edit.html", title = postTitle, content = postContent)
+        if session["username"] in usernames and session["username"] == postUser:
+            
+            if request.method == "GET":
+                return render_template("/post/edit.html", title = postTitle, content = postContent)
 
+            else:
+                newtitle = request.form.get("title")
+                newcontent = request.form.get("content")
+
+                # print(newtitle, newcontent)
+                
+                newtitle = nohack.replace_string(newtitle)
+                newcontent = nohack.replace_string(newcontent)
+
+                time = str(datetime.now())
+                newpost = (newtitle, time, newcontent, session["username"], postTime)
+                # print(newpost)
+                dbm.update_post_db(newpost)
+
+                return redirect(f"/detail/{post_id}/")
+            
         else:
-            newtitle = request.form.get("title")
-            newcontent = request.form.get("content")
-
-            # print(newtitle, newcontent)
-            
-            newtitle = nohack.replace_string(newtitle)
-            newcontent = nohack.replace_string(newcontent)
-
-            time = str(datetime.now())
-            newpost = (newtitle, time, newcontent, session["username"], postTime)
-            # print(newpost)
-            dbm.update_post_db(newpost)
-
-            return redirect(f"/detail/{post_id}/")
-            
-    
+            return redirect(url_for("main.index"))
     else:
         return redirect(url_for("main.index"))
 
