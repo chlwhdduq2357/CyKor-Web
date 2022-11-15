@@ -1,3 +1,8 @@
+주소 : http://jongyeop.pythonanywhere.com/home
+
+(pythonanywhere 이용하여 배포)
+
+
 hello, traveler
 
 처음에는 virtualenv를 이용하여 개발하다가 sqlite3 migration 문제로 인해 가상환경 개발을 포기했습니다.
@@ -7,3 +12,5 @@ hello, traveler
 
 파일 전체를 다운받아 로컬에서 실행할 때, /myproject/app 파일만 다운받고 \_\_init\_\_.py를 실행하면 project를 실행할 수 있습니다.
 이외의 기능 및 상세 설명은 /myproject/app 폴더 내부의 Project Specification.txt 에서 확인하실 수 있습니다. 
+
+
